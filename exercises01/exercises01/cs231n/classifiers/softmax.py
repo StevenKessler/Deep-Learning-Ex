@@ -64,7 +64,10 @@ def softmax_loss_vectorized(W, X, y, reg):
   scores -= np.max(scores, axis = 1, keepdims = True)
   s_y = scores[np.arange(len(y)), y]
   loss = -np.sum(np.log(np.exp(s_y) / np.sum(np.exp(scores), axis = 1)))
-  
+  identity = np.zeros_like(scores)
+  identity[np.arange(len(y)), y] = 1
+  dW = X.T.dot(((np.exp(scores)/np.sum(np.exp(scores), axis = 1, 
+                                       keepdims = True)) - identity))
   #############################################################################
   # TODO: Compute the softmax loss and its gradient using no explicit loops.  #
   # Store the loss in loss and the gradient in dW. If you are not careful     #
