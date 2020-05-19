@@ -126,8 +126,8 @@ class TwoLayerNet(object):
     dW1 = X.T @ dlayer1
     db1 = np.sum(dlayer1, axis = 0)
     db2 = np.sum(dlayer2, axis = 0)
-    dW1 += reg * W1
-    dW2 += reg * W2
+    dW1 += 2 * reg * W1
+    dW2 += 2 * reg * W2
     assert dW1.shape == W1.shape
     assert dW2.shape == W2.shape
     assert db1.shape == b1.shape, f'{db1.shape}, {b1.shape}'
@@ -177,7 +177,9 @@ class TwoLayerNet(object):
       # TODO: Create a random minibatch of training data and labels, storing  #
       # them in X_batch and y_batch respectively.                             #
       #########################################################################
-      pass
+      idx = np.random.choice(num_train, batch_size)
+      X_batch = X[idx]
+      y_batch = y[idx]
       #########################################################################
       #                             END OF YOUR CODE                          #
       #########################################################################
@@ -192,7 +194,10 @@ class TwoLayerNet(object):
       # using stochastic gradient descent. You'll need to use the gradients   #
       # stored in the grads dictionary defined above.                         #
       #########################################################################
-      pass
+      self.params['W1']  -= grads['W1'] * learning_rate 
+      self.params['W2'] -= grads['W2'] * learning_rate
+      self.params['b1'] -= grads['b1'] * learning_rate 
+      self.params['b2']-= grads['b2'] * learning_rate 
       #########################################################################
       #                             END OF YOUR CODE                          #
       #########################################################################
@@ -237,7 +242,15 @@ class TwoLayerNet(object):
     ###########################################################################
     # TODO: Implement this function; it should be VERY simple!                #
     ###########################################################################
-    pass
+    W1, b1 = self.params['W1'], self.params['b1']
+    W2, b2 = self.params['W2'], self.params['b2']
+    N, D = X.shape
+    layer1 = X @ W1 + b1
+    activation = np.maximum(0, layer1)
+    layer2 = activation @ W2 + b2
+    scores = layer2
+    y_pred = np.argmax(scores, axis =1 )
+    assert y_pred.shape == (N,), f'{y_pred.shape}, {(N,)}'
     ###########################################################################
     #                              END OF YOUR CODE                           #
     ###########################################################################
