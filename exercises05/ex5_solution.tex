@@ -1,7 +1,8 @@
 \documentclass[]{article}
 \usepackage{amsmath}
 \begin{document}
-
+\title{Exercise 05}
+\maketitle
 \section{Spatial Dimenions}
 \subsection*{a)}
 \begin{align*}
@@ -23,4 +24,22 @@ F = -((H_2 - 1) * S - H_1 - 2P \\
 The number of Filters is $K = 10$, the shape of the filters is $3 \times 3 \times 5$.
 
 \subsection*{c)}
+\begin{align*}
+W_1 = 73,\, H_1 = 73,\, D_1 =3 ,\, W_2 = 11,\, H_2 = 11,\, D_2 = 6,\, S = 3,\,P = 2,\, F = 7\\
+W_2 = \frac{W_1 - F + 2P}{S} + 1 = 11 \\
+\Leftrightarrow \frac{73 - 7 + 4}{S} = 10 \\
+\Rightarrow S = \frac{70}{10} = 7 \\
+X = D_1 = 3 
+\end{align*}
+Stride is 7, X is 3
+\subsection*{d)}
+\begin{align*}
+W_1 = 256,\, H_1 = 256,\, D_1 =3 ,\, W_2 = 86,\, H_2 = 86,\, D_2 = 10,\, S = 3,\, F = 9\\
+W_2 = \frac{W_1 - F +2P}{S} + 1 = \frac{256 - 9 + 2P}{3} + 1 = 86 \\
+\Rightarrow \frac{247}{3} + \frac{2P}{3} = 85 \\
+\Rightarrow \frac{2P}{3} = 85 - \frac{247}{3} \\
+\Rightarrow 2P = 3(85 - \frac{247}{3} \Rightarrow P = \frac{255 - 247}{2} = 4 \\
+\Rightarrow P = 4 
+\end{align*}
+Number of Filters is $K = D_2 = 10$, zero Padding is $P = 4$.
 \end{document}
