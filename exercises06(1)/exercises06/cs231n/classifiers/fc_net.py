@@ -285,8 +285,9 @@ class FullyConnectedNet(object):
         dW_list = np.zeros(self.num_layers, dtype=object)
         db_list = np.zeros(self.num_layers, dtype=object)
         dx_list[-1], dW_list[-1], db_list[-1] = affine_backward(dloss, cache_list[-1])
-        for i in reversed(range(1, self.num_layers)):
-            dx_list[i-1], dW_list[i-1], db_list[i-1] = affine_relu_backward(dx_list[i-1], cache_list[i-1])
+        for i in reversed(range(0, self.num_layers-1)):
+            #print(i, dx_list[2], cache_list[2])
+            dx_list[i], dW_list[i], db_list[i] = affine_relu_backward(dx_list[i+1], cache_list[i])
             dW_list[i] += self.reg * self.params[f'W{i+1}']
 
         for i in range(1, self.num_layers+1):
